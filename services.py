@@ -12,7 +12,6 @@ def update_balance(username, checking, savings):
         conn.commit()
 
 
-
 def create_account_db(first_name, last_name, username, password_hash, checking, savings):
     with get_connection() as conn:
         conn.execute('''
