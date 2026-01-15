@@ -11,8 +11,10 @@ class Account:
             return False
         if account_type == "checking":
             self.checking += amount
-        else:
+        elif account_type == "savings":
             self.savings += amount
+        else:
+            return False
         return True
 
     def withdraw(self, account_type, amount):
@@ -22,8 +24,10 @@ class Account:
             if amount > self.checking:
                 return False
             self.checking -= amount
-        else:
+        elif account_type == "savings":
             if amount > self.savings:
                 return False
             self.savings -= amount
+        else:
+            return False
         return True

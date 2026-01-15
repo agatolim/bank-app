@@ -1,7 +1,7 @@
 import sqlite3
 
-def get_connection():
-    return sqlite3.connect('accounts.db')
+def get_connection(db_path="accounts.db"):
+    return sqlite3.connect(db_path)
 
 def create_tables():
     with get_connection() as connection:

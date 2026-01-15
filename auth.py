@@ -2,8 +2,11 @@ from account import Account
 import hashing
 from database import get_connection
 
-def login(username, password):
-    with get_connection() as conn:
+def login(username, password, conn=None):
+    if conn is None:
+        conn = get_connection()
+
+    with conn:
         cursor = conn.execute("""
         SELECT first_name, last_name, username, password_hash, checking, savings
         FROM accounts
@@ -23,8 +26,10 @@ def login(username, password):
     return None
 
 
-def duplicate_check(username):
-    with get_connection() as conn:
+def duplicate_check(username, conn=None):
+    if conn is None:
+        conn = get_connection()
+    with conn:
         cursor = conn.execute(
             "SELECT 1 FROM accounts WHERE username = ?", (username,)
         )

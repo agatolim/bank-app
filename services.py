@@ -2,25 +2,26 @@ from database import get_connection
 from hashing import create_password
 from account import Account
 
-def update_balance(username, checking, savings):
-    with get_connection() as conn:
+def update_balance(username, checking, savings, conn=None):
+    if conn is None:
+        conn = get_connection()
+    with conn:
         conn.execute("""
         UPDATE accounts 
         SET checking = ?, savings = ? 
         WHERE username = ?
         """, (checking, savings, username))
-        conn.commit()
 
-
-def create_account_db(first_name, last_name, username, password_hash, checking, savings):
-    with get_connection() as conn:
+def create_account_db(first_name, last_name, username, password_hash, checking, savings, conn=None):
+    if conn is None:
+        conn = get_connection()
+    with conn:
         conn.execute('''
         INSERT INTO accounts (first_name, last_name, username, password_hash, checking, savings)
         VALUES (?, ?, ?, ?, ?, ?)
         ''', (first_name, last_name, username, password_hash, checking, savings))
-        conn.commit()
 
-def create_account(first_name, last_name, username, password):
+def create_account(first_name, last_name, username, password, conn=None):
     password_hash = create_password(password)
-    create_account_db(first_name, last_name, username, password_hash, 0, 0)
+    create_account_db(first_name, last_name, username, password_hash, 0, 0, conn)
     return Account(first_name, last_name, username, checking=0, savings=0)
