@@ -1,3 +1,6 @@
+from config import setup_logging
+setup_logging()
+
 from database import create_tables
 from ui import welcome, action
 

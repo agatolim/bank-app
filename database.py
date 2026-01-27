@@ -7,11 +7,11 @@ def create_tables():
     with get_connection() as connection:
         connection.execute('''
         CREATE TABLE IF NOT EXISTS accounts (
-            first_name text not null,
-            last_name text not null,
-            username text PRIMARY KEY not null,
-            password_hash BLOB not null,
-            checking real default 0,
-            savings real default 0
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            username TEXT PRIMARY KEY NOT null,
+            password_hash BLOB NOT NULL,
+            checking REAL DEFAULT 0,
+            savings REAL DEFAULT 0
         )                   
         ''')
